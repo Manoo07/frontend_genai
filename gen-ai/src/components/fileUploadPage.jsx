@@ -22,6 +22,7 @@ const FileUploadPage = ({ messages, sendMessage, setUrl }) => {
 
     return (
         <div>
+            <h2>Upload file and query</h2>
             <FileUpload onSuccess={handleFileUploadSuccess} onStart={handleFileUploadStart} />
             <ChatWindow messages={messages} sendMessage={sendMessage} />
             {isLoading && !fileUploaded && (

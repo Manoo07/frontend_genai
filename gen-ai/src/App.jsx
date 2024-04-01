@@ -6,12 +6,13 @@ import ChatWindow from './components/ChatWindow';
 import FileUploadPage from './components/fileUploadPage';
 import UploadButton from './components/UploadButton';
 import QueryDbButton from './components/QueryDbButton'
+import NavBar from './components/NavBar';
 
 const getMessageFromGenAI = async (user, url, setUrl) => {
   try {
-    const response = await axios.post(url, {
-      user
-    });
+    // const response = await axios.post(url, {
+    //   user
+    // });
     console.log(user);
     console.log(response.data.bot);
     const session_id = response.data.session_id;
@@ -84,22 +85,26 @@ const App = () => {
   };
 
   return (
+    <>
+    <NavBar />
+
     <div className="container mx-auto p-4">
-        <h1 className="text-4xl font-bold mb-4 flex justify-end">
+        {/* <h1 className="text-4xl font-bold mb-4 flex justify-end">
           <button onClick={() => { navigate('/') }}>Generative AI</button>
-        </h1>
+        </h1> */}
         <div className="flex items-start"> 
           <Routes>
             <Route path="/query/pdf" element={<FileUploadPage setUrl={setUrl} messages={messages} sendMessage={sendMessage} />} />
-            <Route path="/" element={<ChatWindow messages={messages} sendMessage={sendMessage} />} />
+            <Route path="/" element={<ChatWindow  messages={messages} sendMessage={sendMessage} loading={loading} />} />
             <Route path="/query/database" element={<DatabaseChatWindow messages={messages} sendMessage={sendMessage} setUrl={setUrl} />} />
           </Routes>
         {loading && <Loader />}
       </div>
-      {location.pathname !== '/query/pdf' && <UploadButton />}
-      {location.pathname !== '/query/database' && <QueryDbButton/>}
+      {/* {location.pathname !== '/query/pdf' && <UploadButton />}
+      {location.pathname !== '/query/database' && <QueryDbButton/>} */}
       
     </div>
+    </>
   );
 };
 

@@ -7,8 +7,9 @@ class FileUpload extends React.Component {
   handleFileUpload = async (event) => {
     const file = event.target.files[0]; // Get the selected file
     const formData = new FormData();
-    formData.append('file', file); // Append the file to the FormData object
-
+    formData.append('file', file);
+    console.log(file.name) // Append the file to the FormData object
+    localStorage.setItem(file.name)
     try {
       if (this.props.onStart) {
         this.props.onStart(); // Call onStart callback if provided
@@ -31,7 +32,7 @@ class FileUpload extends React.Component {
 
   render() {
     return (
-      <div className="flex items-center">
+      <div className="flex items-center flex-col">
         <input
           type="file"
           id="fileInput"

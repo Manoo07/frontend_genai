@@ -18,22 +18,23 @@ const FileUploadPage = ({ messages, sendMessage, setUrl }) => {
 
     const { filename, session_id } = localStorage;
     console.log(filename, session_id);
-
+    console.log(localStorage.filename)
     return (
         <div className="flex flex-col justify-center items-center">
-            <div className='flex'>
+            <div className='flex flex-col'>
             <h2 className="text-3xl font-bold mb-3 ml-40 mr-3">Upload File and Query </h2>
+            {filename != null && <h3>Uploaded file : {filename}</h3>}
             <div className="flex flex-col items-center"> 
                 <FileUpload onSuccess={handleFileUploadSuccess} onStart={handleFileUploadStart} />
                 <ChatWindow messages={messages} sendMessage={sendMessage} />
             </div>
             </div>
-            {isLoading && (
+            {/* {!isLoading && (
                 <div className="flex flex-col items-center mt-8">
                     <Loader />
                     <p className="mt-2">Uploading...</p>
                 </div>
-            )}
+            )} */}
             {fileUploaded && (
                 <div>
                     {setUrl(`http://127.0.0.1:8000/api/v1/query/pdf/${filename}/1/${session_id}`)}

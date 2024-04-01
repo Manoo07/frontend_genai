@@ -10,6 +10,10 @@ class FileUpload extends React.Component {
     formData.append('file', file); // Append the file to the FormData object
 
     try {
+      if (this.props.onStart) {
+        this.props.onStart(); // Call onStart callback if provided
+      }
+
       const response = await axios.post('http://127.0.0.1:8000/api/v1/upload/pdf', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data
@@ -27,8 +31,7 @@ class FileUpload extends React.Component {
 
   render() {
     return (
-      <div>
-        {/* Hidden file input */}
+      <div className="flex items-center">
         <input
           type="file"
           id="fileInput"
@@ -36,10 +39,10 @@ class FileUpload extends React.Component {
           style={{ display: 'none' }}
           onChange={this.handleFileUpload}
         />
-        {/* Button or icon to trigger file selection */}
-        <button onClick={() => this.fileInput.click()}>
-          {/* Plus icon or any other visual */}
-          <img src={fileIcon} alt="Upload File" style={{ width: '20px', height: '20px' }} />
+        <button 
+          onClick={() => this.fileInput.click()}
+        >
+          <img src={fileIcon} alt="Upload File" className="mr-2" style={{ width: '34px', height: '34px' }} />
         </button>
       </div>
     );
